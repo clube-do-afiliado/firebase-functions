@@ -1,0 +1,16 @@
+{
+    "name": "fire",
+    "version": "1.0.0",
+    "private": true,
+    "license": "MIT",
+    "packageManager": "yarn@3.2.4",
+    "workspaces": [
+        "functions",
+        "functions/*"
+    ],
+    "scripts": {
+        "serve": "firebase emulators:start",
+        "build": "yarn workspaces foreach -ptv run build",
+        "lint": "yarn workspaces foreach -ptv run lint"
+    }
+}

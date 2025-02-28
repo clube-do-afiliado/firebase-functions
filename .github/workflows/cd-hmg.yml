@@ -1,0 +1,11 @@
+name: Firebase Publish - HMG
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/woekflows/deploy.yml
+    with:
+      FIREBASE_PROJECT: clube-do-afiliado-homolog
+    secrets: inherit

@@ -1,0 +1,11 @@
+name: Firebase Publish - PRD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    with:
+      FIREBASE_PROJECT: clube-do-afiliado
+    secrets: inherit
