@@ -30,8 +30,7 @@ export default async function readerToGetInfo<T>(
 
         await page.goto(url, { waitUntil: 'networkidle2' });
 
-        // await delay(Math.floor(Math.random() * 5000) + 3000, { log: true });
-        await delay(150000, { log: true });
+        await delay(Math.floor(Math.random() * 5000) + 3000);
 
         return page.evaluate(cb)
             // .catch((e) => sendErrorMessage(this.url, e.message))
