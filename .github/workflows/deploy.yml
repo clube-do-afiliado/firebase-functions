@@ -21,7 +21,8 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
 
-      - run: yarn install --immutable
+      - name: Install dependencies
+        run: yarn install --immutable
 
       - name: Publish on Firebase
         uses: jsryudev/deploy-firebase-functions@v20.0.1

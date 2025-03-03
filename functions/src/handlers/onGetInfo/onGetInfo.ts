@@ -1,5 +1,5 @@
 import { mapCookies } from '@/helpers';
-import { crawler, when, print } from '@/middlewares';
+import { crawler, when } from '@/middlewares';
 
 import defineHandler from '../defineHandler';
 
@@ -52,7 +52,7 @@ export default defineHandler((req) => [
         'https://amzn.to/*': [getInfoAmazon],
         'https://s.shopee.com.br/*': [getInfoShopee],
         'https://www.magazinevoce.com.br/*': [getInfoMagazineLuiza],
-        'https://mercadolivre.com/*': [print({ 'aqui': '' }), getInfoMercadoLivre],
+        'https://mercadolivre.com/*': [getInfoMercadoLivre],
         // Auth
         'shopee.*login': [getShopeeCredentials],
         'mercadolivre.*login': [getMercadoLivreCredentials],

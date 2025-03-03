@@ -1,6 +1,5 @@
-import puppeteer from 'puppeteer-extra';
-import stealthPlugin from 'puppeteer-extra-plugin-stealth';
-import { type Browser, type Page, type LaunchOptions } from 'puppeteer';
+import chromium from '@sparticuz/chromium';
+import puppeteer, { type Browser, type Page, type LaunchOptions } from 'puppeteer-core';
 
 import type { Middleware, Request } from '@/core';
 import useContext from '@/core/useContext';
@@ -28,17 +27,12 @@ const USER_AGENTS = [
 
 export function crawler<T>(options: CrawlerOptions, callback: Promise<CrawlerCallback<T>>): Middleware<T> {
     return async (request, context, next) => {
-        puppeteer.use(stealthPlugin());
-
         const { set } = useContext(context);
 
         const browser = await puppeteer.launch({
             ...options,
-            args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-blink-features=AutomationControlled',
-            ],
+            args: chromium.args,
+            executablePath: await chromium.executablePath(),
         });
 
         const page = await browser.newPage();
