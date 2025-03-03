@@ -1,0 +1,1 @@
+export { getMagazineLuizaInfo } from './getMagazineLuizaInfo';

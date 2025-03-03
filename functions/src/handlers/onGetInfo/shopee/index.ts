@@ -1,0 +1,1 @@
+export { getShopeeInfo } from './getShopeeInfo';
