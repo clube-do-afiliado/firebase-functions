@@ -1,5 +1,5 @@
 import { mapCookies } from '@/helpers';
-import { crawler, when } from '@/middlewares';
+import { crawler, when, print } from '@/middlewares';
 
 import defineHandler from '../defineHandler';
 
@@ -49,10 +49,10 @@ const getMercadoLivreCredentials = crawler({
 
 export default defineHandler((req) => [
     when(req.body.url, {
-        'https://amzn.to/*': [getInfoAmazon],
-        'https://s.shopee.com.br/*': [getInfoShopee],
-        'https://www.magazinevoce.com.br/*': [getInfoMagazineLuiza],
-        'https://mercadolivre.com/*': [getInfoMercadoLivre],
+        'https://amzn.to/*': [print({ brand: 'amazon' }), getInfoAmazon],
+        'https://s.shopee.com.br/*': [print({ brand: 'shopee' }), getInfoShopee],
+        'https://www.magazinevoce.com.br/*': [print({ brand: 'magazine-luiza' }), getInfoMagazineLuiza],
+        'https://mercadolivre.com/*': [print({ brand: 'mercado-livre' }), getInfoMercadoLivre],
         // Auth
         'shopee.*login': [getShopeeCredentials],
         'mercadolivre.*login': [getMercadoLivreCredentials],
