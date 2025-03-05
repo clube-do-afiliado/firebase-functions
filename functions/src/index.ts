@@ -7,4 +7,4 @@ import { onGetInfo } from './handlers';
 
 dotenv.config();
 
-export const getInfo = onRequest({ memory: '8GiB' }, onGetInfo);
+export const getInfo = onRequest({ memory: '2GiB' }, onGetInfo);
