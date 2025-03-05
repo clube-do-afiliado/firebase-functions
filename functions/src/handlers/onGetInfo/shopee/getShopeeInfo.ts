@@ -1,7 +1,7 @@
-import { useContext } from '@/core';
+import { exec } from '@/middlewares';
 import { Crawler } from '@/plugins';
+import { useContext } from '@/core';
 import { mapCookies } from '@/helpers';
-import { forward } from '@/middlewares';
 import * as shopeeCredentials from '@/credentials/shopee.json';
 
 import type { Info } from '../Info';
@@ -25,7 +25,7 @@ function readerScreen(): Info {
     };
 }
 
-export default forward<Info>(async (_, context) => {
+export default exec<Info>(async (_, context) => {
     const { env, use, set } = useContext(context);
 
     const crawlerNew = await use(Crawler);

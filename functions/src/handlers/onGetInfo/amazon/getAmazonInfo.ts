@@ -1,6 +1,6 @@
-import { useContext } from '@/core';
+import { exec } from '@/middlewares';
 import { Crawler } from '@/plugins';
-import { forward } from '@/middlewares';
+import { useContext } from '@/core';
 
 import type { Info } from '../Info';
 import readerToGetInfo from '../readerToGetInfo';
@@ -21,7 +21,7 @@ function readerScreen(): Info {
     };
 }
 
-export default forward<Info>(async (_, context) => {
+export default exec<Info>(async (_, context) => {
     const { env, use, set } = useContext(context);
 
     const crawlerNew = await use(Crawler);

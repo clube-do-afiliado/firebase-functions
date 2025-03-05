@@ -1,6 +1,6 @@
 import type { Context, Middleware, Request } from '@/core';
 
-export function forward<T>(
+export function exec<T>(
     callback: (request: Request, context: Context<T>) => Promise<T>
 ): Middleware<T> {
     return async (request, context, next) => {
