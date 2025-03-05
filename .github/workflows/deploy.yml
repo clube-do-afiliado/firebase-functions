@@ -6,10 +6,17 @@ on:
       FIREBASE_PROJECT:
         required: true
         type: string
+      ENV:
+        required: true
+        type: string
 
 jobs:
   deploy:
     name: Deploy
+    env:
+      # Environment
+      ENV: ${{ inputs.ENV }}
+      PORT: 8080
 
     runs-on: ubuntu-latest
 
