@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { delay, logger } from '@/helpers';
-import type { CrawlerCallback } from '@/middlewares';
+import type { CrawlerCallback } from '@/plugins';
 
 import type { Integration } from './Integration';
 

@@ -1,1 +1,1 @@
-export { getMagazineLuizaInfo } from './getMagazineLuizaInfo';
+export { default as getMagazineLuizaInfo } from './getMagazineLuizaInfo';

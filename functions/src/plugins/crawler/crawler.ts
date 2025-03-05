@@ -1,16 +1,16 @@
 import chromium from '@sparticuz/chromium';
 import puppeteer, { type Browser, type Page, type LaunchOptions } from 'puppeteer-core';
 
-import type { Middleware, Request } from '@/core';
-import useContext from '@/core/useContext';
-import { getRandom } from '@/helpers/array';
+import { getChromePath, getRandom } from '@/helpers';
+import { definePlugin, useContext, type Context, type Env, type Request } from '@/core';
 
 type CrawlerOptions = LaunchOptions;
 export type CrawlerCallback<T> = (
     browser: Browser,
     page: Page,
     options: {
-        request: Request
+        request: Request,
+        context: Context<T>
     }
 ) => Promise<T>;
 
@@ -25,14 +25,27 @@ const USER_AGENTS = [
 ]
 /* eslint-enable */
 
-export function crawler<T>(options: CrawlerOptions, callback: Promise<CrawlerCallback<T>>): Middleware<T> {
-    return async (request, context, next) => {
-        const { set } = useContext(context);
+async function getPuppeteerArgs(env: Env): Promise<LaunchOptions> {
+    return env === 'prod' ? {
+        args: chromium.args,
+        executablePath: await chromium.executablePath(),
+    } : {
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-blink-features=AutomationControlled',
+        ],
+        executablePath: getChromePath(),
+    };
+}
+
+export default definePlugin(async (request, context) => {
+    return async <T>(options: CrawlerOptions, callback: Promise<CrawlerCallback<T>>) => {
+        const { env } = useContext(context);
 
         const browser = await puppeteer.launch({
             ...options,
-            args: chromium.args,
-            executablePath: await chromium.executablePath(),
+            ...(await getPuppeteerArgs(env)),
         });
 
         const page = await browser.newPage();
@@ -50,10 +63,6 @@ export function crawler<T>(options: CrawlerOptions, callback: Promise<CrawlerCal
 
         const cb = await callback;
 
-        const data = await cb(browser, page, { request });
-
-        set((prev) => ({ ...prev, ...data }));
-
-        return next({ request, context });
+        return await cb(browser, page, { request, context });
     };
-}
+});

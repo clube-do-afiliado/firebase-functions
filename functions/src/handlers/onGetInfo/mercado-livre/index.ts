@@ -1,1 +1,1 @@
-export * from './getMercadoLivreInfo';
+export { default as getMercadoLivreInfo } from './getMercadoLivreInfo';

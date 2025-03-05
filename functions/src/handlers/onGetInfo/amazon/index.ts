@@ -1,1 +1,1 @@
-export * from './getAmazonInfo';
+export { default as getAmazonInfo } from './getAmazonInfo';

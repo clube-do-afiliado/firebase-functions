@@ -1,5 +1,10 @@
+
+import dotenv from 'dotenv';
+
 import { onRequest } from 'firebase-functions/v2/https';
 
 import { onGetInfo } from './handlers';
 
-export const getInfo = onRequest({ memory: '1GiB' }, onGetInfo);
+dotenv.config();
+
+export const getInfo = onRequest({ memory: '8GiB' }, onGetInfo);

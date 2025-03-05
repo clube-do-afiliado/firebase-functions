@@ -1,10 +1,10 @@
-import makeContext from '@/core/makeContext';
+import createContext from '@/core/createContext';
 import runMiddlewares from '@/core/runMiddlewares';
 import type { Request, Response, Middleware } from '@/core';
 
 export default function defineHandler<T>(handler: (req: Request, res: Response) => Middleware<T>[]) {
     return async (req: Request, res: Response) => {
-        const context = makeContext();
+        const context = createContext(req);
 
         const middlewares = handler(req, res);
 

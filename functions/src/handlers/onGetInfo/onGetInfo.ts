@@ -1,11 +1,7 @@
-import { mapCookies } from '@/helpers';
-import { crawler, when, print } from '@/middlewares';
+import { when, print, forward } from '@/middlewares';
 
 import defineHandler from '../defineHandler';
 
-import type { Info } from './Info';
-
-import readerToGetInfo from './readerToGetInfo';
 import readerToGetCredentials from './readerToGetCredentials';
 
 import { getAmazonInfo } from './amazon';
@@ -13,46 +9,36 @@ import { getShopeeInfo } from './shopee';
 import { getMercadoLivreInfo } from './mercado-livre';
 import { getMagazineLuizaInfo } from './magazine-luiza';
 
-import * as shopeeCredentials from '@/credentials/shopee.json';
-import * as mercadolivreCredentials from '@/credentials/mercadolivre.json';
-
-const getInfoShopee = crawler<Info>({
-    headless: true,
-}, readerToGetInfo(
-    { credentials: mapCookies(shopeeCredentials) },
-    getShopeeInfo
-));
-
-const getInfoMagazineLuiza = crawler<Info>({
-    headless: true,
-}, readerToGetInfo({}, getMagazineLuizaInfo));
-
-const getInfoAmazon = crawler<Info>({
-    headless: true,
-}, readerToGetInfo({}, getAmazonInfo));
-
-const getInfoMercadoLivre = crawler<Info>({
-    headless: true,
-}, readerToGetInfo(
-    { credentials: mapCookies(mercadolivreCredentials) },
-    getMercadoLivreInfo
-));
+import { Crawler } from '@/plugins';
+import { useContext } from '@/core';
 
 // Auth
-const getShopeeCredentials = crawler({
-    headless: false,
-}, readerToGetCredentials('shopee', { delay: 35000 }));
+const getShopeeCredentials = forward(async (_, context) => {
+    const { use } = useContext(context);
 
-const getMercadoLivreCredentials = crawler({
-    headless: false,
-}, readerToGetCredentials('mercadolivre', { delay: 35000 }));
+    const crawlerNew = await use(Crawler);
+
+    return await crawlerNew({
+        headless: false,
+    }, readerToGetCredentials('shopee', { delay: 35000 }));
+});
+
+const getMercadoLivreCredentials = forward(async (_, context) => {
+    const { use } = useContext(context);
+
+    const crawlerNew = await use(Crawler);
+
+    return await crawlerNew({
+        headless: false,
+    }, readerToGetCredentials('mercadolivre', { delay: 35000 }));
+});
 
 export default defineHandler((req) => [
     when(req.body.url, {
-        'https://amzn.to/*': [print({ brand: 'amazon' }), getInfoAmazon],
-        'https://s.shopee.com.br/*': [print({ brand: 'shopee' }), getInfoShopee],
-        'https://www.magazinevoce.com.br/*': [print({ brand: 'magazine-luiza' }), getInfoMagazineLuiza],
-        'https://mercadolivre.com/*': [print({ brand: 'mercado-livre' }), getInfoMercadoLivre],
+        'https://amzn.to/*': [print({ brand: 'amazon' }), getAmazonInfo],
+        'https://s.shopee.com.br/*': [print({ brand: 'shopee' }), getShopeeInfo],
+        'https://mercadolivre.com/*': [print({ brand: 'mercado-livre' }), getMercadoLivreInfo],
+        'https://www.magazinevoce.com.br/*': [print({ brand: 'magazine-luiza' }), getMagazineLuizaInfo],
         // Auth
         'shopee.*login': [getShopeeCredentials],
         'mercadolivre.*login': [getMercadoLivreCredentials],

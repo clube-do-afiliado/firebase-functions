@@ -1,1 +1,1 @@
-export { getShopeeInfo } from './getShopeeInfo';
+export { default as getShopeeInfo } from './getShopeeInfo';

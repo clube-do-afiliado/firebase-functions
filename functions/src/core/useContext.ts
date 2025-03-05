@@ -1,3 +1,4 @@
+
 import type { Context } from './Context';
 
 export default function useContext<T>(ctx: Context<T>) {
@@ -5,5 +6,5 @@ export default function useContext<T>(ctx: Context<T>) {
         ctx.data = cb(ctx.data);
     }
 
-    return { set };
+    return { set, ...ctx };
 }
