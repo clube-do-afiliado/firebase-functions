@@ -1,0 +1,1 @@
+export { getCdnPath } from './getCdnPath';

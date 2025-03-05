@@ -1,4 +1,5 @@
 export type Integration =
     | 'shopee'
-    | 'magazina-luiza'
-    | 'mercadolivre'
+    | 'magalu'
+    | 'amazon'
+    | 'mercado-livre'

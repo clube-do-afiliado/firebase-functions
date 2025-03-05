@@ -4,8 +4,11 @@ import { useContext } from '@/core';
 import { delay, logger } from '@/helpers';
 import { SlackNotify, readerScreenErrorMessage, type CrawlerCallback } from '@/plugins';
 
+import type { Integration } from './Integration';
+
 type ReaderToGetInfoOptions = {
-    credentials?: CookieData[]
+    integration: Integration;
+    credentials?: CookieData[];
 }
 
 export default async function readerToGetInfo<T>(
@@ -15,7 +18,7 @@ export default async function readerToGetInfo<T>(
     return async (browser, page, { request, context }) => {
         const url = request.body.url;
 
-        const { credentials } = options;
+        const { credentials, integration } = options;
 
         const { use, env } = useContext(context);
 
@@ -44,6 +47,7 @@ export default async function readerToGetInfo<T>(
                         readerScreenErrorMessage({
                             url: request.body.url,
                             message: e.message,
+                            imageName: integration,
                         })
                     );
                 }

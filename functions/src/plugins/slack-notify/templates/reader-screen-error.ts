@@ -1,11 +1,14 @@
+import { getCdnPath } from '@/helpers';
+
 import type { Args } from '../slack-notify';
 
 type ReaderScreenReader = {
     url: string;
     message: string;
+    imageName: string;
 }
 
-export default function readerScreenErrorMessage({ url, message }: ReaderScreenReader): Args {
+export default function readerScreenErrorMessage({ imageName, url, message }: ReaderScreenReader): Args {
     return {
         blocks: [
             {
@@ -35,7 +38,7 @@ export default function readerScreenErrorMessage({ url, message }: ReaderScreenR
                     },
                     {
                         'type': 'image',
-                        'image_url': 'https://i.pinimg.com/736x/89/f3/62/89f362b04423b091aee923a0387c5c35.jpg',
+                        'image_url': getCdnPath(imageName, 'small'),
                         'alt_text': 'Shopee',
                     },
                     {

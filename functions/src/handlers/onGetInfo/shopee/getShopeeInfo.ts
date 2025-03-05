@@ -33,12 +33,14 @@ export default exec<Info>(async (_, context) => {
     return crawlerNew({
         headless: env === 'prod',
     }, readerToGetInfo(
-        { credentials: mapCookies(shopeeCredentials) },
+        {
+            integration: 'shopee',
+            credentials: mapCookies(shopeeCredentials),
+        },
         readerScreen
-    ))
-        .then((info) => {
-            set((prev) => ({ ...prev, ...info }));
+    )).then((info) => {
+        set((prev) => ({ ...prev, ...info }));
 
-            return info;
-        });
+        return info;
+    });
 });

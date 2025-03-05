@@ -26,10 +26,14 @@ export default exec<Info>(async (_, context) => {
 
     return crawlerNew({
         headless: env === 'prod',
-    }, readerToGetInfo({}, readerScreen))
-        .then((info) => {
-            set((prev) => ({ ...prev, ...info }));
+    }, readerToGetInfo(
+        {
+            integration: 'magalu',
+        },
+        readerScreen
+    )).then((info) => {
+        set((prev) => ({ ...prev, ...info }));
 
-            return info;
-        });
+        return info;
+    });
 });

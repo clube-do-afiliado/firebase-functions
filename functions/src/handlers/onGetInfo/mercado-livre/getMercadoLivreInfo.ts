@@ -2,7 +2,7 @@ import { exec } from '@/middlewares';
 import { Crawler } from '@/plugins';
 import { useContext } from '@/core';
 import { mapCookies } from '@/helpers';
-import * as mercadolivreCredentials from '@/credentials/mercadolivre.json';
+import * as mercadolivreCredentials from '@/credentials/mercado-livre.json';
 
 import type { Info } from '../Info';
 import readerToGetInfo from '../readerToGetInfo';
@@ -35,12 +35,14 @@ export default exec<Info>(async (_, context) => {
     return crawlerNew({
         headless: env === 'prod',
     }, readerToGetInfo(
-        { credentials: mapCookies(mercadolivreCredentials) },
+        {
+            integration: 'mercado-livre',
+            credentials: mapCookies(mercadolivreCredentials),
+        },
         readerScreen
-    ))
-        .then((info) => {
-            set((prev) => ({ ...prev, ...info }));
+    )).then((info) => {
+        set((prev) => ({ ...prev, ...info }));
 
-            return info;
-        });
+        return info;
+    });
 });
