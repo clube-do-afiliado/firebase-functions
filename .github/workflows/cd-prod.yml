@@ -8,5 +8,5 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       FIREBASE_PROJECT: clube-do-afiliado
-      ENV: 'prod'
+      ENV: prod
     secrets: inherit

@@ -8,30 +8,33 @@ import readerToGetInfo from '../readerToGetInfo';
 function readerScreen(): Info {
     const title = document.getElementById('title');
 
-    const price = document.getElementById('attach-base-product-price') as HTMLInputElement;
+    const priceEl = document.getElementById('attach-base-product-price') as HTMLInputElement;
 
     const imageContainer = document.getElementById('imgTagWrapperId');
 
     const image = imageContainer?.querySelector('img');
 
+    const price = Number(priceEl?.value.trim());
+
     return {
+        integration: 'amazon',
         title: (title?.textContent || '').trim(),
-        price: (price?.value || '').trim(),
+        price: price || 0,
         img: image?.getAttribute('src') || '',
+        originalPrice: 0,
     };
 }
 
-export default exec<Info>(async (_, context) => {
+export default exec<Info>(async (req, context) => {
     const { env, use, set } = useContext(context);
 
-    const crawlerNew = await use(Crawler);
+    const crawler = await use(Crawler);
 
-    return crawlerNew({
+    return crawler({
         headless: env === 'prod',
     }, readerToGetInfo(
-        {
-            integration: 'amazon',
-        },
+        req.body.data.url,
+        { integration: 'amazon' },
         readerScreen
     ).then((info) => {
         set((prev) => ({ ...prev, ...info }));

@@ -14,6 +14,6 @@ export default function defineHandler<T>(handler: (req: Request, res: Response) 
             next: async () => res,
         });
 
-        response.json(context.data);
+        response.json({ data: context.data });
     };
 }

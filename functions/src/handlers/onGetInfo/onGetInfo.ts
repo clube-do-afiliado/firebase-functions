@@ -34,7 +34,7 @@ const getMercadoLivreCredentials = exec(async (_, context) => {
 });
 
 export default defineHandler((req) => [
-    when(req.body.url, {
+    when(req.body.data.url, {
         'https://amzn.to/*': [print({ brand: 'amazon' }), getAmazonInfo],
         'https://s.shopee.com.br/*': [print({ brand: 'shopee' }), getShopeeInfo],
         'https://mercadolivre.com/*': [print({ brand: 'mercado-livre' }), getMercadoLivreInfo],

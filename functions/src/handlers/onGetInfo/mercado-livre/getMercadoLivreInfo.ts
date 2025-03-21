@@ -21,13 +21,15 @@ function readerScreen(): Info {
     const price = rowContainer?.querySelector('[itemprop=\'price\']') as HTMLMetaElement;
 
     return {
+        integration: 'mercado-livre',
         title: (title?.textContent || '').trim(),
         img: image?.getAttribute('src') || '',
-        price: price?.content || '',
+        price: Number(price?.content) || 0,
+        originalPrice: 0,
     };
 }
 
-export default exec<Info>(async (_, context) => {
+export default exec<Info>(async (req, context) => {
     const { env, use, set } = useContext(context);
 
     const crawlerNew = await use(Crawler);
@@ -35,6 +37,7 @@ export default exec<Info>(async (_, context) => {
     return crawlerNew({
         headless: env === 'prod',
     }, readerToGetInfo(
+        req.body.data.url,
         {
             integration: 'mercado-livre',
             credentials: mapCookies(mercadolivreCredentials),

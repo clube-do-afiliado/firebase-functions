@@ -19,13 +19,15 @@ function readerScreen(): Info {
     const image = images.querySelector('div > div > div > picture > img');
 
     return {
+        integration: 'shopee',
         title: title?.textContent || '',
         img: image?.getAttribute('src') || '',
-        price: price?.textContent || '',
+        price: Number(price?.textContent) || 0,
+        originalPrice: 0,
     };
 }
 
-export default exec<Info>(async (_, context) => {
+export default exec<Info>(async (req, context) => {
     const { env, use, set } = useContext(context);
 
     const crawlerNew = await use(Crawler);
@@ -33,6 +35,7 @@ export default exec<Info>(async (_, context) => {
     return crawlerNew({
         headless: env === 'prod',
     }, readerToGetInfo(
+        req.body.data.url,
         {
             integration: 'shopee',
             credentials: mapCookies(shopeeCredentials),

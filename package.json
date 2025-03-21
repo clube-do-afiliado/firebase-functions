@@ -5,8 +5,7 @@
     "license": "MIT",
     "packageManager": "yarn@3.2.4",
     "workspaces": [
-        "functions",
-        "functions/*"
+        "functions"
     ],
     "scripts": {
         "serve": "firebase emulators:start",

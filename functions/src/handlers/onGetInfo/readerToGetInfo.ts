@@ -12,12 +12,11 @@ type ReaderToGetInfoOptions = {
 }
 
 export default async function readerToGetInfo<T>(
+    url: string,
     options: ReaderToGetInfoOptions,
     cb: () => T
 ): Promise<CrawlerCallback<T>> {
     return async (browser, page, { request, context }) => {
-        const url = request.body.url;
-
         const { credentials, integration } = options;
 
         const { use, env } = useContext(context);
@@ -38,7 +37,7 @@ export default async function readerToGetInfo<T>(
 
         await page.goto(url, { waitUntil: 'networkidle2' });
 
-        await delay(Math.floor(Math.random() * 55000) + 3000, { log: env !== 'prod' });
+        await delay(Math.floor(Math.random() * 1000) + 3000, { log: env !== 'prod' });
 
         return page.evaluate(cb)
             .catch((e) => {
