@@ -23,7 +23,8 @@
     "puppeteer": "^24.3.0",
     "puppeteer-core": "^24.3.0",
     "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "stripe": "^17.7.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",

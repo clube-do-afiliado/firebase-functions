@@ -1,21 +1,22 @@
 import defineHandler from '@/handlers/defineHandler';
-import { exec, print } from '@/middlewares';
-// import { useContext } from '@/core';
-// import { SlackNotify } from '@/plugins';
+import { exec } from '@/middlewares';
+import { useContext } from '@/core';
 import { logger } from '@/helpers';
+import { ProcessStripeEvents } from '@/plugins/process-stripe-events';
 
-const printTeste = print({ brand: 'amazon' });
-// eslint-disable-next-line
-const getStripeEvent = exec(async (_, context) => {
-    // const { use } = useContext(context);
-    // use(SlackNotify);
 
-    logger.info('getStripeEvent');
+const getStripeEvent = exec(async (request, context) => {
+    const { use } = useContext(context);
+
+    logger.debug('processing stripe event');
+
+    await use(ProcessStripeEvents).processEvent(request);
+
+    logger.info('event successfully processed');
 
     return;
 });
-// eslint-disable-next-line
-export default defineHandler((req) => [
-    printTeste,
+
+export default defineHandler(() => [
     getStripeEvent,
 ]);
