@@ -37,7 +37,7 @@ export default async function readerToGetInfo<T>(
 
         await page.goto(url, { waitUntil: 'networkidle2' });
 
-        await delay(Math.floor(Math.random() * 1000) + 3000, { log: env !== 'prod' });
+        await delay(Math.floor(Math.random() * 1000) + 1000, { log: env !== 'prod' });
 
         return page.evaluate(cb)
             .catch((e) => {
