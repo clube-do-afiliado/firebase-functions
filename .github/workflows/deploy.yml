@@ -40,3 +40,4 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT: ${{ inputs.FIREBASE_PROJECT }}
           FUNCTIONS_DIR: functions
+          args: deploy --force
