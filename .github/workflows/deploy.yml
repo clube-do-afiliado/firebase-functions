@@ -31,6 +31,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Configure cleanup policy
+        run: npx firebase-tools functions:artifacts:setpolicy --token ${{ secrets.FIREBASE_TOKEN }}
+
       - name: Publish on Firebase
         uses: jsryudev/deploy-firebase-functions@v20.0.1
         env:
