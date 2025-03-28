@@ -16,7 +16,6 @@ jobs:
     env:
       # Environment
       ENV: ${{ inputs.ENV }}
-      PORT: 8080
 
     runs-on: ubuntu-latest
 
