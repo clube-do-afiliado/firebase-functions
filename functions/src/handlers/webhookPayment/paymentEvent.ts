@@ -1,16 +1,16 @@
 export interface PaymentEvent {
-    Customer: Customer | null | undefined
-    Plan: Plan | null | undefined
+    Plan?: Plan;
+    Customer?: Customer;
     Status: 'paid' | 'failed' | 'not_mapped'
 }
 
 interface Customer {
-    Email: string | null | undefined
-    Name: string | null | undefined
+    Email?: string;
+    Name?: string;
 }
 
 interface Plan {
-    id: string | undefined
+    id?: string;
 }
 
 

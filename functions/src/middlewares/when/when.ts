@@ -15,7 +15,7 @@ export function when<T>(fn: Callback<T>, routes: Routes): Middleware<T> {
     return (request, context, next) => {
         const toMatch = fn({ request, context });
 
-        if (!toMatch) { throw new Error('toMatch was not defined'); }
+        if (!toMatch) { return next({ request, context }); }
 
         for (const [pathname, middlewares] of entries) {
             if (toMatch.match(pathname)) {

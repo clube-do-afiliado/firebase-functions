@@ -1,4 +1,4 @@
-import stripe, { Stripe } from 'stripe';
+import stripe from 'stripe';
 
 import { definePlugin, Request } from '@/core';
 import { PaymentEvent } from '@/handlers/webhookPayment/paymentEvent';
@@ -21,7 +21,7 @@ function mapData(data: any): PaymentEvent {
 export default definePlugin(() => {
     const secret = process.env.STRIPE_WEBHOOK_SECRET;
 
-    async function processEvent(request: Request) {
+    async function processEvent(request: Request): Promise<PaymentEvent> {
         const signature: string = request.header('stripe-signature') ??
             (() => {
                 throw new Error('Missing stripe-signature header');
@@ -31,7 +31,7 @@ export default definePlugin(() => {
 
         const event = stripe.webhooks.constructEvent(body, signature, secret);
 
-        if (!EVENT_SAFE_LIST.includes(event.type)) { return; }
+        if (!EVENT_SAFE_LIST.includes(event.type)) { return { Status: 'not_mapped' }; }
 
         return mapData(event.data.object);
     }
