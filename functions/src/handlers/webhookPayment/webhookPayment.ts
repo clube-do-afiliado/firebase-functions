@@ -27,13 +27,7 @@ const processFailedEvent = exec(async (request, context) => {
 
 export default defineHandler(() => [
     getStripeEvent,
-    when<PaymentEvent>(({ context }) => {
-        const status = context.data.Status;
-
-        logger.info('status:', status);
-
-        return status;
-    }, {
+    when<PaymentEvent>(({ context }) => context.data.Status, {
         'paid': [processPaidEvent],
         'failed': [processFailedEvent],
     }),

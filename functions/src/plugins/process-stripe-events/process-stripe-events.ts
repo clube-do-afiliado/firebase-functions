@@ -1,14 +1,27 @@
-import stripe from 'stripe';
+import stripe, { Stripe } from 'stripe';
 
 import { definePlugin, Request } from '@/core';
 import { PaymentEvent } from '@/handlers/webhookPayment/paymentEvent';
 
+const EVENT_SAFE_LIST: stripe.Event['type'][] = [
+    'checkout.session.completed',
+];
+
+function mapData(data: any): PaymentEvent {
+    return {
+        Customer: {
+            Email: data.object.customer_details?.email,
+            Name: data.object.customer_details?.name,
+        },
+        Plan: { id: data.object.metadata?.plan_id },
+        Status: 'paid',
+    };
+}
 
 export default definePlugin(() => {
     const secret = process.env.STRIPE_WEBHOOK_SECRET;
 
-
-    async function processEvent(request: Request): Promise<PaymentEvent> {
+    async function processEvent(request: Request) {
         const signature: string = request.header('stripe-signature') ??
             (() => {
                 throw new Error('Missing stripe-signature header');
@@ -17,20 +30,10 @@ export default definePlugin(() => {
         const body = request.rawBody;
 
         const event = stripe.webhooks.constructEvent(body, signature, secret);
-        switch (event.type) {
-            case 'checkout.session.completed':
-                if (event.data.object.payment_status == 'paid') {
-                    return {
-                        Customer: {
-                            Email: event.data.object.customer_details?.email,
-                            Name: event.data.object.customer_details?.name,
-                        },
-                        Plan: { id: event.data.object.metadata?.plan_id },
-                        Status: 'paid',
-                    };
-                }
-        }
-        return { Customer: undefined, Plan: undefined, Status: 'not_mapped' };
+
+        if (!EVENT_SAFE_LIST.includes(event.type)) { return; }
+
+        return mapData(event.data.object);
     }
 
     return { processEvent };
