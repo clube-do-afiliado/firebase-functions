@@ -1,6 +1,7 @@
-import {definePlugin, Request} from '@/core';
 import stripe from 'stripe';
-import {PaymentEvent} from '@/handlers/webhookPayment/paymentEvent';
+
+import { definePlugin, Request } from '@/core';
+import { PaymentEvent } from '@/handlers/webhookPayment/paymentEvent';
 
 
 export default definePlugin(() => {
@@ -14,7 +15,6 @@ export default definePlugin(() => {
             })();
 
         const body = request.rawBody;
-
 
         const event = stripe.webhooks.constructEvent(body, signature, secret);
         switch (event.type) {

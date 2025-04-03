@@ -1,5 +1,5 @@
 import defineHandler from '@/handlers/defineHandler';
-import {exec, when} from '@/middlewares';
+import { exec, when } from '@/middlewares';
 import { useContext } from '@/core';
 import { logger } from '@/helpers';
 import { ProcessStripeEvents } from '@/plugins/process-stripe-events';
@@ -28,7 +28,13 @@ const processFailedEvent = exec(async (request, context) => {
 
 export default defineHandler(() => [
     getStripeEvent,
-    when<PaymentEvent>(({ context }) => context.data.Status, {
+    when<PaymentEvent>(({ context }) => {
+        const status = context.data.Status;
+
+        logger.info(status);
+
+        return status;
+    }, {
         'paid': [processPaidEvent],
         'failed': [processFailedEvent],
     }),
