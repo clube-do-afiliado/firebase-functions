@@ -5,16 +5,15 @@ import { logger } from '@/helpers';
 import { ProcessStripeEvents } from '@/plugins/process-stripe-events';
 import { PaymentEvent } from '@/handlers/webhookPayment/paymentEvent';
 
-
 const getStripeEvent = exec(async (request, context) => {
-    const { use, set } = useContext(context);
+    const { use, set } = useContext<PaymentEvent>(context);
 
     logger.debug('processing stripe event');
 
     const processStripeEvents = use(ProcessStripeEvents);
     const event = await processStripeEvents.processEvent(request);
 
-    set((prev) => ({ ...prev, event }));
+    set((prev) => ({ ...prev, ...event }));
 });
 
 const processPaidEvent = exec(async (_, context) => {
@@ -31,7 +30,7 @@ export default defineHandler(() => [
     when<PaymentEvent>(({ context }) => {
         const status = context.data.Status;
 
-        logger.info(status);
+        logger.info('status:', status);
 
         return status;
     }, {
