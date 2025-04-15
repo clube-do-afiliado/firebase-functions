@@ -8,7 +8,7 @@ const CORS_SAFE_LIST = [
 ];
 
 export const health = onRequest((_, res) => {
-    res.status(200).send(`This app is healthy - ${env}`);
+    res.status(200).send(`This app is healthy - ${env.value()}`);
 });
 
 export const getInfo = onRequest({
