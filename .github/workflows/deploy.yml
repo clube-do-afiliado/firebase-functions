@@ -42,7 +42,7 @@ jobs:
       # Passa as variáveis do GitHub Secrets para o Firebase
       - run: |
           firebase functions:config:set \
-            ENV="prod"
+            env="prod"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
