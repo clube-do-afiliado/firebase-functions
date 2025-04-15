@@ -43,6 +43,8 @@ jobs:
       - run: |
           firebase functions:config:set \
             app.env="prod"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Publish on Firebase
         uses: jsryudev/deploy-firebase-functions@v20.0.1
