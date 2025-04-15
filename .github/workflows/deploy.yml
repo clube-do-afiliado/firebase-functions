@@ -27,6 +27,12 @@ jobs:
           node-version-file: .nvmrc
           cache: 'yarn'
 
+      - name: Install Firebase CLI globally
+        run: npm install -g firebase-tools
+      
+      - name: Check Firebase CLI
+        run: firebase --version
+
       - name: Install dependencies
         run: yarn install --immutable
 
