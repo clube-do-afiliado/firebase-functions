@@ -1,10 +1,10 @@
 import { exec } from '@/middlewares';
+import { logger } from '@/helpers';
 import { Crawler } from '@/plugins';
 import { useContext } from '@/core';
 
 import type { Info } from '../Info';
 import readerToGetInfo from '../readerToGetInfo';
-import { logger } from '@/helpers';
 
 function readerScreen(): Info {
     const infoSection = document.getElementsByTagName('SECTION')[4];
