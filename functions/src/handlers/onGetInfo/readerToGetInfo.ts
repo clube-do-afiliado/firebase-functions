@@ -16,12 +16,12 @@ export default async function readerToGetInfo<T>(
     options: ReaderToGetInfoOptions,
     cb: () => T
 ): Promise<CrawlerCallback<T>> {
-    return async (browser, page, { request, context }) => {
-        const { credentials, integration } = options;
+    return async (browser, page, { context }) => {
+        const { credentials } = options;
 
-        const { use, env } = useContext(context);
+        const { env } = useContext(context);
 
-        const slackNotify = use(SlackNotify);
+        // const slackNotify = use(SlackNotify);
 
         if (credentials) {
             await browser.setCookie(...credentials);
@@ -42,13 +42,13 @@ export default async function readerToGetInfo<T>(
         return page.evaluate(cb)
             .catch((e) => {
                 if (env === 'prod') {
-                    slackNotify.send(
-                        readerScreenErrorMessage({
-                            url: request.body.url,
-                            message: e.message,
-                            imageName: integration,
-                        })
-                    );
+                    // slackNotify.send(
+                    //     readerScreenErrorMessage({
+                    //         url: request.body.url,
+                    //         message: e.message,
+                    //         imageName: integration,
+                    //     })
+                    // );
                 }
 
                 throw new Error(e);
