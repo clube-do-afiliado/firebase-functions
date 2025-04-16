@@ -30,10 +30,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Check Quotas
-        run: |
-          gcloud services list --consumed-quota-metrics
-
       - name: Configure cleanup policy
         run: npx firebase-tools functions:artifacts:setpolicy --force --token ${{ secrets.FIREBASE_TOKEN }}
 
