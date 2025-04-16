@@ -2,7 +2,7 @@ import type { CookieData } from 'puppeteer';
 
 import { useContext } from '@/core';
 import { delay, logger } from '@/helpers';
-import { SlackNotify, readerScreenErrorMessage, type CrawlerCallback } from '@/plugins';
+import { type CrawlerCallback } from '@/plugins';
 
 import type { Integration } from './Integration';
 
