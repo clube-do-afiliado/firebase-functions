@@ -17,7 +17,7 @@ export default function defineHandler<T>(handler: (req: Request, res: Response) 
 
             response.json({ data: context.data });
         } catch (error) {
-            res.json(error);
+            res.status(500).send(error);
         }
     };
 }
