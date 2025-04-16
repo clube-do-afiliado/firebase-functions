@@ -1,6 +1,8 @@
 import { exec } from '@/middlewares';
 import { Crawler } from '@/plugins';
 import { useContext } from '@/core';
+import { mapCookies } from '@/helpers';
+import * as magaluCredentials from '@/credentials/magazine-luiza.json';
 
 import type { Info } from '../Info';
 import readerToGetInfo from '../readerToGetInfo';
@@ -36,6 +38,7 @@ export default exec<Info>(async (req, context) => {
         req.body.data.url,
         {
             integration: 'magazine-luiza',
+            credentials: mapCookies(magaluCredentials),
         },
         readerScreen
     )).then((info) => {

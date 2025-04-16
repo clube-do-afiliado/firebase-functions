@@ -16,9 +16,9 @@ import { useContext } from '@/core';
 const getShopeeCredentials = exec(async (_, context) => {
     const { use } = useContext(context);
 
-    const crawlerNew = await use(Crawler);
+    const crawler = await use(Crawler);
 
-    return await crawlerNew({
+    return await crawler({
         headless: false,
     }, readerToGetCredentials('shopee', { delay: 35000 }));
 });
@@ -26,11 +26,21 @@ const getShopeeCredentials = exec(async (_, context) => {
 const getMercadoLivreCredentials = exec(async (_, context) => {
     const { use } = useContext(context);
 
-    const crawlerNew = await use(Crawler);
+    const crawler = await use(Crawler);
 
-    return await crawlerNew({
+    return await crawler({
         headless: false,
     }, readerToGetCredentials('mercado-livre', { delay: 35000 }));
+});
+
+const getMagalizeLuizaCredentials = exec(async (_, context) => {
+    const { use } = useContext(context);
+
+    const crawler = await use(Crawler);
+
+    return await crawler({
+        headless: false,
+    }, readerToGetCredentials('magazine-luiza', { delay: 35000 }));
 });
 
 export default defineHandler((req) => [
@@ -38,9 +48,19 @@ export default defineHandler((req) => [
         'https://amzn.to/*': [print({ brand: 'amazon' }), getAmazonInfo],
         'https://s.shopee.com.br/*': [print({ brand: 'shopee' }), getShopeeInfo],
         'https://mercadolivre.com/*': [print({ brand: 'mercado-livre' }), getMercadoLivreInfo],
-        'https://www.magazinevoce.com.br/*': [print({ brand: 'magalu' }), getMagaluInfo],
+        'https://www.magazinevoce.com.br/[a-zA-Z0-9-_].*/': [print({ brand: 'magazine-luiza' }), getMagaluInfo],
         // Auth
-        'shopee.*login': [getShopeeCredentials],
-        'mercadolivre.*login': [getMercadoLivreCredentials],
+        'shopee.*login': [
+            print({ brand: 'shopee', action: 'get-credentials' }),
+            getShopeeCredentials,
+        ],
+        'mercadolivre.*login': [
+            print({ brand: 'mercadolivre', action: 'get-credentials' }),
+            getMercadoLivreCredentials,
+        ],
+        'magazinevoce.*az-request-verify': [
+            print({ brand: 'magazine-luiza', action: 'get-credentials' }),
+            getMagalizeLuizaCredentials,
+        ],
     }),
 ]);
