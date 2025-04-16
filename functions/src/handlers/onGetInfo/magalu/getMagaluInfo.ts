@@ -1,5 +1,4 @@
 import { exec } from '@/middlewares';
-import { logger } from '@/helpers';
 import { Crawler } from '@/plugins';
 import { useContext } from '@/core';
 
@@ -8,8 +7,6 @@ import readerToGetInfo from '../readerToGetInfo';
 
 function readerScreen(): Info {
     const infoSection = document.getElementsByTagName('SECTION')[4];
-
-    logger.info('SECTION', JSON.stringify(infoSection));
 
     const title = document.querySelector('H1[data-testid="heading-product-title"]');
     const img = document.querySelector('img[data-testid="image-selected-thumbnail"]');
