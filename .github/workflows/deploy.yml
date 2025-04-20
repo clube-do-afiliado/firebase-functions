@@ -16,7 +16,6 @@ jobs:
     env:
       # Environment
       ENV: ${{ inputs.ENV }}
-      PORT: 8080
 
     runs-on: ubuntu-latest
 
@@ -31,9 +30,18 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
+      - name: Configure cleanup policy
+        run: npx firebase-tools functions:artifacts:setpolicy --force --token ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Create .env file
+        run: bash ${{ github.workspace }}/scripts/create-env.sh
+        env:
+          ENV: prod
+
       - name: Publish on Firebase
         uses: jsryudev/deploy-firebase-functions@v20.0.1
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT: ${{ inputs.FIREBASE_PROJECT }}
           FUNCTIONS_DIR: functions
+          args: deploy --force

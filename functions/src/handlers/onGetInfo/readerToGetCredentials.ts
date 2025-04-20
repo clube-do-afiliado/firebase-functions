@@ -17,7 +17,7 @@ export default async function readerToGetCredentials(
     options: ReaderScreenToGetInfoOptions
 ): Promise<CrawlerCallback<Result>> {
     return async (browser, page, { request }) => {
-        const url = request.body.url;
+        const url = request.body.data.url;
 
         if (!url) { throw new Error('url was not defined'); }
 

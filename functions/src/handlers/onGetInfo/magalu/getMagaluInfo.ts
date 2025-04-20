@@ -1,6 +1,8 @@
 import { exec } from '@/middlewares';
 import { Crawler } from '@/plugins';
 import { useContext } from '@/core';
+import { mapCookies } from '@/helpers';
+import * as magaluCredentials from '@/credentials/magazine-luiza.json';
 
 import type { Info } from '../Info';
 import readerToGetInfo from '../readerToGetInfo';
@@ -13,21 +15,15 @@ function readerScreen(): Info {
     const priceEl = infoSection.querySelector('p[data-testid="price-value"]');
     const priceOriginalEl = infoSection.querySelector('p[data-testid="price-original"]');
 
-    const match = priceEl?.textContent?.match(/(\d+,\d+)/);
-    const matchOriginalPrice = priceOriginalEl?.textContent?.match(/(\d+,\d+)/);
-
-    const price = Number(match && match[0]
-        .replace(',', '.'));
-
-    const originalPrice = Number(matchOriginalPrice && matchOriginalPrice[0]
-        .replace(',', '.'));
+    const price = priceEl?.textContent?.replace(/[^\d,]/g, '').replace(',', '.');
+    const originalPrice = priceOriginalEl?.textContent?.replace(/[^\d,]/g, '').replace(',', '.');
 
     return {
         integration: 'magazine-luiza',
         title: title?.textContent || '',
         img: img?.getAttribute('src') || '',
-        price: price || 0,
-        originalPrice: originalPrice || 0,
+        price: Number(price) || 0,
+        originalPrice: Number(originalPrice) || 0,
     };
 }
 
@@ -42,6 +38,7 @@ export default exec<Info>(async (req, context) => {
         req.body.data.url,
         {
             integration: 'magazine-luiza',
+            credentials: mapCookies(magaluCredentials),
         },
         readerScreen
     )).then((info) => {
