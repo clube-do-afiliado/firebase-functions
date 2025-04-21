@@ -36,9 +36,9 @@ export default exec<Info>(async (req, context) => {
         req.body.data.url,
         { integration: 'amazon' },
         readerScreen
-    ).then((info) => {
+    )).then((info) => {
         set((prev) => ({ ...prev, ...info }));
 
         return info;
-    }));
+    });
 });

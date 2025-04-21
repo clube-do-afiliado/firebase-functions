@@ -45,9 +45,10 @@ const getMagalizeLuizaCredentials = exec(async (_, context) => {
 
 export default defineHandler((req) => [
     when(req.body.data.url, {
-        'https://amzn.to/*': [print({ brand: 'amazon' }), getAmazonInfo],
+        // Get product
+        'https://www.amazon.com.br/*': [print({ brand: 'amazon' }), getAmazonInfo],
         'https://s.shopee.com.br/*': [print({ brand: 'shopee' }), getShopeeInfo],
-        'https://mercadolivre.com/*': [print({ brand: 'mercado-livre' }), getMercadoLivreInfo],
+        'https://www.mercadolivre.com/*': [print({ brand: 'mercado-livre' }), getMercadoLivreInfo],
         'https://www.magazinevoce.com.br/[a-zA-Z0-9-_].*/': [print({ brand: 'magazine-luiza' }), getMagaluInfo],
         // Auth
         'shopee.*login': [
