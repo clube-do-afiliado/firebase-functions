@@ -12,6 +12,7 @@ export const health = onRequest((_, res) => {
 });
 
 export const getInfo = onRequest({
-    memory: '2GiB',
+    memory: '1GiB',
+    timeoutSeconds: 120,
     cors: CORS_SAFE_LIST,
 }, onGetInfo);

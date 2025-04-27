@@ -5,3 +5,4 @@ export * from './sanitize';
 export * from './mapCookies';
 export * from './getCdnPath';
 export * from './getChromePath';
+export * from './getRandomDesktopUserAgent';

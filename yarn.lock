@@ -451,7 +451,7 @@ __metadata:
     firebase-functions-test: ^3.1.0
     jest: ^29.7.0
     puppeteer: ^24.3.0
-    puppeteer-core: ^24.3.0
+    puppeteer-core: ^24.7.2
     puppeteer-extra: ^3.3.6
     puppeteer-extra-plugin-stealth: ^2.11.2
     rimraf: ^6.0.1
@@ -1112,6 +1112,23 @@ __metadata:
   version: 1.1.0
   resolution: "@protobufjs/utf8@npm:1.1.0"
   checksum: f9bf3163d13aaa3b6f5e6fbf37a116e094ea021c0e1f2a7ccd0e12a29e2ce08dafba4e8b36e13f8ed7397e1591610ce880ed1289af4d66cf4ace8a36a9557278
+  languageName: node
+  linkType: hard
+
+"@puppeteer/browsers@npm:2.10.2":
+  version: 2.10.2
+  resolution: "@puppeteer/browsers@npm:2.10.2"
+  dependencies:
+    debug: ^4.4.0
+    extract-zip: ^2.0.1
+    progress: ^2.0.3
+    proxy-agent: ^6.5.0
+    semver: ^7.7.1
+    tar-fs: ^3.0.8
+    yargs: ^17.7.2
+  bin:
+    browsers: lib/cjs/main-cli.js
+  checksum: 27a373b915c0e30f7c154e3154e374df366389d0138b31936649bbf6a2285d87e0c19cf6caa23420ea59c4f918a22e654409d742a966acc44424141ad04782d1
   languageName: node
   linkType: hard
 
@@ -2389,6 +2406,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chromium-bidi@npm:4.1.1":
+  version: 4.1.1
+  resolution: "chromium-bidi@npm:4.1.1"
+  dependencies:
+    mitt: ^3.0.1
+    zod: ^3.24.1
+  peerDependencies:
+    devtools-protocol: "*"
+  checksum: 30ed480364c00f6608e1f173dc0ba224d5d7d97941994ce89352fb807ebe1bd91fdafaf0afe419282af547603f6f03a5fe9684138cbefbba901b260d05cfe226
+  languageName: node
+  linkType: hard
+
 "ci-info@npm:^3.2.0":
   version: 3.9.0
   resolution: "ci-info@npm:3.9.0"
@@ -2751,6 +2780,13 @@ __metadata:
   version: 0.0.1402036
   resolution: "devtools-protocol@npm:0.0.1402036"
   checksum: dab0be48597ab396074b349205c1064e25019b84ff7316ee5f0c10323aabce5c83734b6eaf542a0dc8f744f0e916ae0b78fa64da582d1bb15a8bad0dbb3effa6
+  languageName: node
+  linkType: hard
+
+"devtools-protocol@npm:0.0.1425554":
+  version: 0.0.1425554
+  resolution: "devtools-protocol@npm:0.0.1425554"
+  checksum: 8ad301abee2146f0aff613c81c01570d787a0a01fc764fc8fbe0bdbac379d2f426d69fe0e38fbbb1342032f9e063910ec1d807d18e40af29a85eda88bfefc763
   languageName: node
   linkType: hard
 
@@ -6558,7 +6594,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:24.3.0, puppeteer-core@npm:^24.3.0":
+"puppeteer-core@npm:24.3.0":
   version: 24.3.0
   resolution: "puppeteer-core@npm:24.3.0"
   dependencies:
@@ -6569,6 +6605,20 @@ __metadata:
     typed-query-selector: ^2.12.0
     ws: ^8.18.1
   checksum: 39310204371b015f8835a69c1ac6673edd0556948873da8d9bb9d1ee30297bee51acc94c9875737700d1492026118b7fb2b9708d1650b2619b6ed00117e6a8bb
+  languageName: node
+  linkType: hard
+
+"puppeteer-core@npm:^24.7.2":
+  version: 24.7.2
+  resolution: "puppeteer-core@npm:24.7.2"
+  dependencies:
+    "@puppeteer/browsers": 2.10.2
+    chromium-bidi: 4.1.1
+    debug: ^4.4.0
+    devtools-protocol: 0.0.1425554
+    typed-query-selector: ^2.12.0
+    ws: ^8.18.1
+  checksum: 1fbdc14bad5a22aa8981759b9e6122f462d4e41a647106ecb6936aa8d5747154f416b4339918d4ecbc45c77c78dfc6cb2e0a50fc8f4512dd4275e5050fed7838
   languageName: node
   linkType: hard
 
@@ -6998,7 +7048,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.0":
+"semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.7.0, semver@npm:^7.7.1":
   version: 7.7.1
   resolution: "semver@npm:7.7.1"
   bin:

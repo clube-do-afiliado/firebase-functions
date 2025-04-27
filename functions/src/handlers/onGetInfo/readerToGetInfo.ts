@@ -37,6 +37,10 @@ export default async function readerToGetInfo<T>(
 
         await page.goto(url, { waitUntil: 'networkidle2' });
 
+        const pageTitle = await page.title();
+
+        logger.info('Página acessada >>>> ', pageTitle);
+
         await delay(Math.floor(Math.random() * 1000) + 2500, { log: env !== 'prod' });
 
         return page.evaluate(cb)
