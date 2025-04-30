@@ -7,7 +7,7 @@ import * as mercadolivreCredentials from '@/credentials/mercado-livre.json';
 import type { Info } from '../Info';
 import readerToGetInfo from '../readerToGetInfo';
 
-function readerScreen(): Info {
+async function readerScreen(): Promise<Info> {
     const mainContainer = document.getElementById('ui-pdp-main-container');
 
     const productContainer = mainContainer?.querySelector('div > div > div');
@@ -40,6 +40,7 @@ export default exec<Info>(async (req, context) => {
         req.body.data.url,
         {
             integration: 'mercado-livre',
+            applicant: req.body.data.applicant,
             credentials: mapCookies(mercadolivreCredentials),
         },
         readerScreen

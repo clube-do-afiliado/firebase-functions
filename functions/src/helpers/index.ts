@@ -3,6 +3,8 @@ export * from './array';
 export * from './logger';
 export * from './sanitize';
 export * from './mapCookies';
+export * from './screenshot';
 export * from './getCdnPath';
+export * from './getFormatDate';
 export * from './getChromePath';
 export * from './getRandomDesktopUserAgent';

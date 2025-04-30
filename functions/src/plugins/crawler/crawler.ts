@@ -49,13 +49,6 @@ export default definePlugin(async (request, context) => {
             getRandomDesktopUserAgent()
         );
 
-        // Evita detecção de Webdriver
-        await page.evaluateOnNewDocument(() => {
-            Object.defineProperty(navigator, 'webdriver', {
-                get: () => false,
-            });
-        });
-
         await page.setExtraHTTPHeaders({
             'Accept-Language': 'pt-BR,pt;q=0.9,en-US,en;q=0.8',
             'Referer': 'https://www.google.com',

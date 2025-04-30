@@ -5,7 +5,7 @@ import { useContext } from '@/core';
 import type { Info } from '../Info';
 import readerToGetInfo from '../readerToGetInfo';
 
-function readerScreen(): Info {
+async function readerScreen(): Promise<Info> {
     const title = document.getElementById('title');
 
     const priceEl = document.getElementById('attach-base-product-price') as HTMLInputElement;
@@ -34,7 +34,10 @@ export default exec<Info>(async (req, context) => {
         headless: env === 'prod',
     }, readerToGetInfo(
         req.body.data.url,
-        { integration: 'amazon' },
+        {
+            integration: 'amazon',
+            applicant: req.body.data.applicant,
+        },
         readerScreen
     )).then((info) => {
         set((prev) => ({ ...prev, ...info }));

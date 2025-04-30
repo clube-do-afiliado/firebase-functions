@@ -7,7 +7,7 @@ import * as magaluCredentials from '@/credentials/magazine-luiza.json';
 import type { Info } from '../Info';
 import readerToGetInfo from '../readerToGetInfo';
 
-function readerScreen(): Info {
+async function readerScreen(): Promise<Info> {
     const infoSection = document.getElementsByTagName('SECTION')[4];
 
     const title = document.querySelector('H1[data-testid="heading-product-title"]');
@@ -38,6 +38,7 @@ export default exec<Info>(async (req, context) => {
         req.body.data.url,
         {
             integration: 'magazine-luiza',
+            applicant: req.body.data.applicant,
             credentials: mapCookies(magaluCredentials),
         },
         readerScreen

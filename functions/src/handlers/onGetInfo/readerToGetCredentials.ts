@@ -26,7 +26,7 @@ export default async function readerToGetCredentials(
         await delay(options.delay, { log: true });
 
         const folderPath = path.resolve(__dirname, '../../credentials');
-        const filePath = path.join(folderPath, `${integration}-1.json`);
+        const filePath = path.join(folderPath, `${integration}.json`);
 
         if (!fs.existsSync(folderPath)) {
             logger.debug('Criando pasta de credenciais...');
@@ -37,7 +37,7 @@ export default async function readerToGetCredentials(
 
         fs.writeFileSync(filePath, JSON.stringify(cookies, null, 2), 'utf8');
 
-        logger.debug(`$Salvando arquivo: ${integration}.json`);
+        logger.debug(`Salvando arquivo: ${integration}.json`);
 
         await browser.close();
 
