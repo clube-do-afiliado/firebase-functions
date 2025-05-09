@@ -11,5 +11,8 @@
         "serve": "firebase emulators:start",
         "build": "yarn workspaces foreach -ptv run build",
         "lint": "yarn workspaces foreach -ptv run lint"
+    },
+    "dependencies": {
+        "firebase": "^11.6.1"
     }
 }

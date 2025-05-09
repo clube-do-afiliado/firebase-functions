@@ -35,7 +35,7 @@ export default exec<Info>(async (req, context) => {
     const crawlerNew = await use(Crawler);
 
     return crawlerNew({
-        headless: env === 'prod',
+        headless: env.nodeEnv === 'prod',
     }, readerToGetInfo(
         req.body.data.url,
         {

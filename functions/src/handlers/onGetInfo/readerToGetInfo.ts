@@ -37,7 +37,7 @@ export default async function readerToGetInfo<T>(
 
         logger.info('Página acessada >>>> ', pageTitle);
 
-        await delay(Math.floor(Math.random() * 1000) + 2500, { log: env !== 'prod' });
+        await delay(Math.floor(Math.random() * 1000) + 2500, { log: env.nodeEnv !== 'prod' });
 
         return cb(page)
             .then((data) => data)

@@ -1,4 +1,4 @@
-import { env } from '@/env';
+import * as process from '@/env';
 
 import { Plugin } from './Plugin';
 import type { Request } from './Request';
@@ -9,11 +9,18 @@ function instantiate<T, I>(token: Plugin<T, I>, request: Request, context: Conte
 }
 
 export default function createContext<T>(request: Request): Context<T> {
-    const _env = env.value() as Env;
+    const data = {};
+
+    const env: Context<T>['env'] = {
+        nodeEnv: process.env.value() as Env,
+        apiKey: process.API_KEY.value(),
+        projectId: process.PROJECT_ID.value(),
+        authDomain: process.AUTH_DOMAIN.value(),
+    };
 
     function use<I>(token: Plugin<T, I>): I {
-        return instantiate(token, request, { use, env: _env, data: {} });
+        return instantiate(token, request, { use, env, data });
     }
 
-    return { data: {}, use, env: _env };
+    return { data, use, env };
 }

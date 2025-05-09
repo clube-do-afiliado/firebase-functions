@@ -6,8 +6,8 @@ import readerToGetCredentials from './readerToGetCredentials';
 
 import { getAmazonInfo } from './amazon';
 import { getShopeeInfo } from './shopee';
-import { getMercadoLivreInfo } from './mercado-livre';
 import { getMagaluInfo } from './magalu';
+import { getMercadoLivreInfo } from './mercado-livre';
 
 import { Crawler } from '@/plugins';
 import { useContext } from '@/core';

@@ -39,7 +39,7 @@ export default definePlugin(async (request, context) => {
 
         const browser = await puppeteerExtra.launch({
             ...options,
-            ...(await getPuppeteerArgs(env)),
+            ...(await getPuppeteerArgs(env.nodeEnv)),
         });
 
         const page = await browser.newPage();
