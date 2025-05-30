@@ -1,5 +1,23 @@
 {
   "projects": {
-    "default": "clube-do-afiliado-homolog"
-  }
+    "production": "clube-do-afiliado",
+    "homolog": "clube-do-afiliado-homolog"
+  },
+  "targets": {
+    "clube-do-afiliado": {
+      "hosting": {
+        "promo": [
+          "promo-clube-do-afiliado"
+        ]
+      }
+    },
+    "clube-do-afiliado-homolog": {
+      "hosting": {
+        "promo": [
+          "hmg-promo-clube-do-afiliado"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

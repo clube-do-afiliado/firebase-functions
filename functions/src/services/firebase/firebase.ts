@@ -21,7 +21,7 @@ export function getFirestoreInstance(data: FirestoreData) {
 
     const firestore = getFirestore(app);
 
-    if (env.value() as Env === 'local') {
+    if (env.value() as Env === 'LOCAL') {
         connectFirestoreEmulator(firestore, '127.0.0.1', 8080);
     }
 

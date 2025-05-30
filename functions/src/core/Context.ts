@@ -1,6 +1,6 @@
 import type { Plugin } from './Plugin';
 
-export type Env = 'local' | 'prod';
+export type Env = 'LOCAL' | 'HMG' | 'PROD';
 
 export type Context<T> = {
     data: Partial<T>;

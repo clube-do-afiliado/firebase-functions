@@ -12,13 +12,13 @@ export function when<T>(toMatch: string, routes: Routes): Middleware<T> {
             middleware,
         ]);
 
-    return (request, context, next) => {
+    return (response, request, context, next) => {
         for (const [pathname, middlewares] of entries) {
             if (toMatch.match(pathname)) {
-                return runMiddlewares(middlewares, { request, context, next });
+                return runMiddlewares(middlewares, { response, request, context, next });
             }
         }
 
-        return next({ request, context });
+        return next({ response, request, context });
     };
 }

@@ -9,6 +9,7 @@ export default function defineHandler<T>(handler: (req: Request, res: Response) 
         const middlewares = handler(req, res);
 
         const response = await runMiddlewares(middlewares ?? [], {
+            response: res,
             request: req,
             context,
             next: async () => res,
