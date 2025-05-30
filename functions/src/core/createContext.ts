@@ -13,6 +13,7 @@ export default function createContext<T>(request: Request): Context<T> {
 
     const env: Context<T>['env'] = {
         nodeEnv: process.env.value() as Env,
+        release: process.RELEASE.value(),
         apiKey: process.API_KEY.value(),
         projectId: process.PROJECT_ID.value(),
         authDomain: process.AUTH_DOMAIN.value(),

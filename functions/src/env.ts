@@ -1,8 +1,13 @@
 import { defineString } from 'firebase-functions/params';
 
 export const env = defineString('ENV', {
-    default: 'local',
+    default: 'LOCAL',
     description: 'Ambiente de execução',
+});
+
+export const RELEASE = defineString('RELEASE', {
+    default: '0.0.0',
+    description: 'Versão da projeto',
 });
 
 export const API_KEY = defineString('API_KEY', {

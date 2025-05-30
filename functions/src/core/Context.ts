@@ -7,6 +7,7 @@ export type Context<T> = {
     env: {
         nodeEnv: Env;
         apiKey: string;
+        release: string;
         projectId: string;
         authDomain: string;
     };
