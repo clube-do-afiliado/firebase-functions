@@ -1,10 +1,10 @@
-import type { Context, Middleware, Request } from '@/core';
+import type { Context, Middleware, Request, Response } from '@/core';
 
 export function exec<T>(
-    callback: (request: Request, context: Context<T>) => Promise<T>
+    callback: (response: Response, request: Request, context: Context<T>) => Promise<T>
 ): Middleware<T> {
-    return async (request, context, next) => {
-        await callback(request, context);
-        return next({ request, context });
+    return async (response, request, context, next) => {
+        await callback(response, request, context);
+        return next({ response, request, context });
     };
 }

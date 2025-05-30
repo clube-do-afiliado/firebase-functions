@@ -1,6 +1,6 @@
 import { onRequest } from 'firebase-functions/v2/https';
 
-import { onGetInfo, onUpdateDomain, onHealth } from './handlers';
+import { onHealth, onRedirect, onGenerateShortUrl, onTrackEvent } from './handlers';
 
 const CORS_SAFE_LIST = [
     /^(https?:\/\/)?([a-zA-Z0-9-]+\.)*clubedoafiliado\.com(\/|$)/,
@@ -8,12 +8,14 @@ const CORS_SAFE_LIST = [
 
 export const health = onRequest(onHealth);
 
-export const getInfo = onRequest({
-    memory: '1GiB',
-    timeoutSeconds: 120,
+export const track = onRequest({
     cors: CORS_SAFE_LIST,
-}, onGetInfo);
+}, onTrackEvent);
 
-export const updateDomain = onRequest({
+export const redirect = onRequest({
     cors: CORS_SAFE_LIST,
-}, onUpdateDomain);
+}, onRedirect);
+
+export const shortUrl = onRequest({
+    cors: CORS_SAFE_LIST,
+}, onGenerateShortUrl);

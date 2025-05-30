@@ -9,6 +9,7 @@ export default async function runMiddlewares<T>(
         return options.next({
             context: options.context,
             request: options.request,
+            response: options.response,
         });
     }
 
@@ -16,5 +17,5 @@ export default async function runMiddlewares<T>(
     const next: NextFn<T> = ({ context, request }) =>
         runMiddlewares(remmaining, { ...options, request, context });
 
-    return current(options.request, options.context, next);
+    return current(options.response, options.request, options.context, next);
 }

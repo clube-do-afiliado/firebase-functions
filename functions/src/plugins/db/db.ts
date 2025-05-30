@@ -16,10 +16,11 @@ import {
     collection,
     arrayUnion,
     runTransaction,
+    getDoc,
 } from 'firebase/firestore';
 
-import { ArrayOrObject, Path } from '@/helpers';
 import { definePlugin } from '@/core';
+import { ArrayOrObject, Path } from '@/helpers';
 
 type Field = WithFieldValue<DocumentData>;
 
@@ -49,6 +50,8 @@ type CollectionWithData<F extends Field> = Omit<CollectionData<F>, 'filters'>;
 type CollectionWithFilters<F extends Field> = Omit<CollectionData<F>, 'data'>;
 type CollectionWithOnlyPaths<F extends Field> = Omit<CollectionData<F>, 'data' | 'filters'>;
 
+type Document = { path: string; id: string; }
+
 export default definePlugin(async () => {
     return async (firestore: Firestore) => {
         async function setItem<F extends Field>({ path, data, pathSegments }: CollectionWithData<F>) {
@@ -74,6 +77,13 @@ export default definePlugin(async () => {
                     const result = querySnapshot.docs.map((doc) => doc.data() as F);
                     return result ? result[0] : null;
                 });
+        }
+
+        async function getDocument<F extends Field>({ id, path }: Document) {
+            const document = doc(firestore, path, id);
+            const docSnap = await getDoc(document);
+
+            return docSnap.exists() ? (docSnap.data() as F) : null;
         }
 
         async function getList<F extends Field>({ path, filters, pathSegments }: CollectionWithFilters<F>) {
@@ -123,6 +133,7 @@ export default definePlugin(async () => {
             getList,
             deleteItem,
             transaction,
+            getDocument,
         };
     };
 });
