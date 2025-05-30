@@ -1,7 +1,6 @@
 {
   "hosting": {
     "target": "promo",
-    "public": "public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
