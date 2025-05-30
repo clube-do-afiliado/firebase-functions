@@ -4,6 +4,14 @@ FILE=functions/.env
 
 # variables
 ENV=${1:-$ENV}
+RELEASE=${2:-$RELEASE}
+PROJECT_ID=${3:-$PROJECT_ID}
+AUTH_DOMAIN=${4:-$AUTH_DOMAIN}
+API_KEY=${5:-$API_KEY}
 
 touch $FILE
 echo ENV=$ENV >> $FILE
+echo RELEASE=$RELEASE >> $FILE
+echo PROJECT_ID=$PROJECT_ID >> $FILE
+echo AUTH_DOMAIN=$AUTH_DOMAIN >> $FILE
+echo API_KEY=$API_KEY >> $FILE

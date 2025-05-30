@@ -75,3 +75,4 @@ jobs:
           args: deploy --only hosting:promo --project=${{ inputs.FIREBASE_PROJECT_ENV }}
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: functions
