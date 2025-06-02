@@ -3,6 +3,10 @@
     "target": "promo",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
+       {
+        "source": "/health",
+        "function": "health"
+      },
       {
         "source": "/**",
         "function": "redirect"
@@ -31,7 +35,7 @@
       "port": 5001
     },
     "hosting": {
-      "port": 5000
+      "port": 3005
     },
     "ui": {
       "enabled": true
