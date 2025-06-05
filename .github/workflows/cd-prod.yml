@@ -1,4 +1,4 @@
-name: Firebase Publish - PRD
+name: Firebase Publish - PROD
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ jobs:
   deploy:
     uses: ./.github/workflows/deploy.yml
     with:
-      ENV: HMG
-      FIREBASE_PROJECT: clube-do-afiliado-homolog
-      FIREBASE_PROJECT_ENV: homolog
+      ENV: PROD
+      FIREBASE_PROJECT: clube-do-afiliado-stg
+      FIREBASE_PROJECT_ENV: stg
     secrets: inherit
