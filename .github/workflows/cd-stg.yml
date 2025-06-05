@@ -1,0 +1,13 @@
+name: Firebase Publish - STG
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy.yml
+    with:
+      ENV: STG
+      FIREBASE_PROJECT: clube-do-afiliado-stg
+      FIREBASE_PROJECT_ENV: staging
+    secrets: inherit

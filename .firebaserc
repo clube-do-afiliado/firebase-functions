@@ -1,7 +1,7 @@
 {
   "projects": {
     "production": "clube-do-afiliado",
-    "homolog": "clube-do-afiliado-homolog"
+    "staging": "clube-do-afiliado-stg"
   },
   "targets": {
     "clube-do-afiliado": {
@@ -14,7 +14,7 @@
     "clube-do-afiliado-homolog": {
       "hosting": {
         "promo": [
-          "hmg-promo-clube-do-afiliado"
+          "stg-promo-clube-do-afiliado"
         ]
       }
     }
