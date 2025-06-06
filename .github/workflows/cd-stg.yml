@@ -10,4 +10,6 @@ jobs:
       ENV: STG
       FIREBASE_PROJECT: clube-do-afiliado-stg
       FIREBASE_PROJECT_ENV: staging
+      ADMIN_URL: ${{ vars.STG_ADMIN_URL }}
+      BACKOFFICE_URL:  ${{ vars.STG_BACKOFFICE_URL }}
     secrets: inherit

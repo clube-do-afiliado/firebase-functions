@@ -12,7 +12,12 @@ on:
       FIREBASE_PROJECT_ENV:
         required: true
         type: string
-
+      ADMIN_URL:
+        required: true
+        type: string
+      BACKOFFICE_URL:
+        required: true
+        type: string
 jobs:
   environment:
     runs-on: ubuntu-latest
@@ -56,6 +61,8 @@ jobs:
           ENV: ${{ inputs.ENV }}
           # Environment
           RELEASE: ${{ needs.environment.outputs.tag_name }}
+          ADMIN_URL: ${{inputs.ADMIN_URL}}
+          BACKOFFICE_URL: ${{inputs.BACKOFFICE_URL}}
           # Firebase
           PROJECT_ID: ${{ inputs.FIREBASE_PROJECT }}
           AUTH_DOMAIN: ${{ inputs.FIREBASE_PROJECT }}.firebaseapp.com
