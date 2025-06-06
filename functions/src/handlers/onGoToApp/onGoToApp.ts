@@ -2,15 +2,13 @@
 import { DB } from '@/plugins';
 import { useContext } from '@/core';
 import { exec } from '@/middlewares';
+import { decode } from '@/helpers/jwt';
+import { UserData } from '@/domain/user';
+import { serialize } from '@/helpers/url';
 import { getFirestoreInstance } from '@/services';
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID } from '@/env';
 
-// import defineRedirectHandler from '../defineRedirectHandler';
 import defineHandler from '../defineHandler';
-// import { logger } from '@/helpers/logger';
-import { decode } from '@/helpers/jwt';
-import { UserData } from '@/domain/user';
-import { serialize } from '@/helpers/url/url';
 
 interface Data {
     url: string;
