@@ -47,8 +47,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      # - name: Configure cleanup policy
-      #   run: npx firebase-tools functions:artifacts:setpolicy --force --project=${{ inputs.FIREBASE_PROJECT_ENV }} --token ${{ secrets.FIREBASE_TOKEN }}
+      - name: Configure cleanup policy
+        run: npx firebase-tools functions:artifacts:setpolicy --force --project=${{ inputs.FIREBASE_PROJECT_ENV }} --token ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Create .env file
         run: bash ${{ github.workspace }}/scripts/create-env.sh
