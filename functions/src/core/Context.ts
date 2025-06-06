@@ -10,6 +10,10 @@ export type Context<T> = {
         release: string;
         projectId: string;
         authDomain: string;
+        url: {
+            admin: string;
+            backoffice: string;
+        }
     };
     use: <I>(token: Plugin<T, I>) => I;
 };

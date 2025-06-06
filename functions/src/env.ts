@@ -24,3 +24,13 @@ export const AUTH_DOMAIN = defineString('AUTH_DOMAIN', {
     default: 'localhost',
     description: 'Ambiente de execução',
 });
+
+export const BACKOFFICE_URL = defineString('BACKOFFICE_URL', {
+    default: 'http://localhost:3003',
+    description: 'Url do backoffice',
+});
+
+export const ADMIN_URL = defineString('ADMIN_URL', {
+    default: 'http://localhost:3001',
+    description: 'Url do admin',
+});

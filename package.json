@@ -13,6 +13,7 @@
         "lint": "yarn workspaces foreach -ptv run lint"
     },
     "dependencies": {
-        "firebase": "^11.6.1"
+        "firebase": "^11.6.1",
+        "jsonwebtoken": "^9.0.2"
     }
 }

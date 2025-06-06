@@ -17,6 +17,10 @@ export default function createContext<T>(request: Request): Context<T> {
         apiKey: process.API_KEY.value(),
         projectId: process.PROJECT_ID.value(),
         authDomain: process.AUTH_DOMAIN.value(),
+        url: {
+            admin: process.ADMIN_URL.value(),
+            backoffice: process.BACKOFFICE_URL.value(),
+        },
     };
 
     function use<I>(token: Plugin<T, I>): I {

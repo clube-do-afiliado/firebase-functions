@@ -1,7 +1,11 @@
 import { onRequest } from 'firebase-functions/v2/https';
 import { setGlobalOptions } from 'firebase-functions/v2/options';
 
-import { onHealth, onRedirect, onGenerateShortUrl, onTrackEvent } from './handlers';
+import onHealth from './handlers/onHealth';
+import onGoToApp from './handlers/onGoToApp';
+import onRedirect from './handlers/onRedirect';
+import onTrackEvent from './handlers/onTrackEvent';
+import onGenerateShortUrl from './handlers/onGenerateShortUrl';
 
 const CORS_SAFE_LIST = [
     /^(https?:\/\/)?([a-zA-Z0-9-]+\.)*clubedoafiliado\.com(\/|$)/,
@@ -22,3 +26,7 @@ export const redirect = onRequest({
 export const shortUrl = onRequest({
     cors: CORS_SAFE_LIST,
 }, onGenerateShortUrl);
+
+export const goToApp = onRequest({
+    cors: CORS_SAFE_LIST,
+}, onGoToApp);
